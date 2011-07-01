@@ -1,0 +1,38 @@
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://localhost/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://localhost/">
+<types>
+<xsd:schema targetNamespace="http://localhost/">
+<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+</xsd:schema>
+</types>
+<message name="ws_racineRequest">
+<part name="i" type="xsd:integer"/>
+</message>
+<message name="ws_racineResponse">
+<part name="totale" type="xsd:float"/>
+</message>
+<portType name="RacinePortType">
+<operation name="ws_racine">
+<documentation>adds two integer values and returns the result</documentation>
+<input message="tns:ws_racineRequest"/>
+<output message="tns:ws_racineResponse"/>
+</operation>
+</portType>
+<binding name="RacineBinding" type="tns:RacinePortType">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="ws_racine">
+<soap:operation soapAction="http://localhost/#ws_racine" style="rpc"/>
+<input>
+<soap:body use="encoded" namespace="http://localhost/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</input>
+<output>
+<soap:body use="encoded" namespace="http://localhost/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+</output>
+</operation>
+</binding>
+<service name="Racine">
+<port name="RacinePort" binding="tns:RacineBinding">
+<soap:address location="http://localhost/ws/server.php"/>
+</port>
+</service>
+</definitions>
